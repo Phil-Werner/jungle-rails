@@ -8,6 +8,36 @@
     <h4>Thank you for your order!</h4>
   </div>
 
-  <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
+  <div>
+    <p> You ordered: </p>
+
+    <% @line_items.each do |line_item| %>
+
+    <tr>
+    <td>
+      <%= image_tag line_item.product.image.tiny %>
+    </td>
+    <td>
+      <h4>  <%= line_item.quantity %> <%= line_item.product.name %></h4>
+      <br>
+      <p><%= line_item.product.description %></p>
+    </td>
+    <td>
+      Total for this product:   <%= humanized_money_with_symbol line_item.total_price_cents %>
+    </td>
+    </tr>
+
+    <% end %>
+  </div>
+
+  <br>
+  <br>
+
+  <div>
+    Total price for entire order: <%= humanized_money_with_symbol @order.total_cents %>
+  </div>
+  <div>
+    Email address used for order: <%= @order.email %>
+  </div>
 
 </section>
