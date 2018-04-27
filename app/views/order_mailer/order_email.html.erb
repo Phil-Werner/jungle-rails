@@ -1,0 +1,20 @@
+
+    <h1>Thanks for placing your order!</h1>
+    <p>
+      You have successfully placed your order.
+      You ordered:
+
+      <% @line_items.each do |line_item| %>
+
+      <p> <%= line_item.product.name %> </p>
+
+      <% end %>
+
+    </p>
+
+    <% total_in_dollars = @order.total_cents.to_f %>
+    <% total_in_dollars = total_in_dollars / 100 %>
+
+    <p> Your total is: $ <%= total_in_dollars %> </p>
+
+    <p>Thanks for your order and have a great day!</p>

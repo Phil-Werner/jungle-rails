@@ -22,19 +22,27 @@
       <br>
       <p><%= line_item.product.description %></p>
     </td>
+
+    <% line_item_total_dollars = line_item.total_price_cents.to_f %>
+    <% line_item_total_dollars = line_item_total_dollars / 100 %>
+
     <td>
-      Total for this product:   <%= humanized_money_with_symbol line_item.total_price_cents %>
+      Total for this product:  $ <%= line_item_total_dollars %>
     </td>
     </tr>
+
+    <br>
+    <br>
 
     <% end %>
   </div>
 
   <br>
   <br>
-
+          <% order_total_dollars = @order.total_cents.to_f %>
+          <% order_total_dollars = order_total_dollars / 100 %>
   <div>
-    Total price for entire order: <%= humanized_money_with_symbol @order.total_cents %>
+    Total price for entire order: $ <%= order_total_dollars %>
   </div>
   <div>
     Email address used for order: <%= @order.email %>
