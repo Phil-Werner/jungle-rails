@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160625062916) do
+ActiveRecord::Schema.define(version: 20180426233556) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,13 @@ ActiveRecord::Schema.define(version: 20160625062916) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string   "comment_text",      limit: 255
+    t.integer  "resource_id"
+    t.integer  "user_commented_id"
+    t.datetime "create_at",                     default: "now()"
   end
 
   create_table "line_items", force: :cascade do |t|
@@ -34,6 +41,16 @@ ActiveRecord::Schema.define(version: 20160625062916) do
 
   add_index "line_items", ["order_id"], name: "index_line_items_on_order_id", using: :btree
   add_index "line_items", ["product_id"], name: "index_line_items_on_product_id", using: :btree
+
+  create_table "migrations", force: :cascade do |t|
+    t.string   "name",           limit: 255
+    t.integer  "batch"
+    t.datetime "migration_time"
+  end
+
+  create_table "migrations_lock", id: false, force: :cascade do |t|
+    t.integer "is_locked"
+  end
 
   create_table "orders", force: :cascade do |t|
     t.integer  "total_cents"
@@ -56,7 +73,32 @@ ActiveRecord::Schema.define(version: 20160625062916) do
 
   add_index "products", ["category_id"], name: "index_products_on_category_id", using: :btree
 
+  create_table "rating", force: :cascade do |t|
+    t.integer "resource_id"
+    t.integer "user_liked_id"
+    t.integer "rating"
+  end
+
+  create_table "resources", force: :cascade do |t|
+    t.string   "title",       limit: 255
+    t.string   "description", limit: 255
+    t.string   "URL",         limit: 255
+    t.string   "category",    limit: 255
+    t.integer  "user_id"
+    t.datetime "create_at",               default: "now()"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "password_digest"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_foreign_key "comments", "resources", name: "comments_resource_id_foreign"
   add_foreign_key "line_items", "orders"
   add_foreign_key "line_items", "products"
   add_foreign_key "products", "categories"
+  add_foreign_key "rating", "resources", name: "rating_resource_id_foreign"
 end
