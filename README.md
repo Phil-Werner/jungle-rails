@@ -17,4 +17,5 @@ A mini e-commerce application built with Rails 4.2 for purposes of teaching Rail
 
 ## Screenshots
 
-
+!["Main products page"](https://github.com/Phil-Werner/jungle-rails/blob/master/docs/Cart-Page.png)
+!["Checkout cart page"](https://github.com/Phil-Werner/jungle-rails/blob/master/docs/Cart-Page.png)
