@@ -4,7 +4,7 @@
     <h1>My Cart</h1>
   </header>
 
-  <% if (@cart_total == 0) %>
+  <% if (cart.length != 0) %>
 
   <div class="panel panel-default items">
     <table class="table table-bordered">
@@ -52,12 +52,12 @@
     </div>
   </div>
 
+
   <% else %>
     <h3>
       Your cart is empty!  Please click <a href="/"> here </a> to return to the Home Page and pick out some fine products!
     </h3>
 
   <% end %>
-
 
 </section>
